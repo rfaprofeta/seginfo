@@ -1,0 +1,48 @@
+#!/home/rfa/anaconda3/bin/python3
+#program for crypt and uncrypt informations
+file1 = open('encriptado','w')
+file2 = open('decriptado','w')
+def decrypt(text):
+	exam=list(text)
+	lista=[];i=0
+	for ch in exam:
+		if ch == "#":
+			lista.append(ch)
+		else:
+			value=ord(str(ch))
+			if i % 2 == 0:
+				value = value - 7
+			else:
+				value = value + 7
+			lista.append(chr(value))
+		i+=1
+	decriptado=("".join(lista).strip('[]'))
+	print(lista)
+	decriptado=decriptado.replace("#"," ")
+	return decriptado
+
+def encrypt(text):
+	exam=list(text)
+	lista=[];i=0
+	for ch in exam:
+		if ch == " ":
+			value = ord("#")
+		else:
+			value=ord(str(ch))
+			if i % 2 == 0:
+				value = value + 7
+			else:
+				value = value - 7
+		lista.append(chr(value))
+		i+=1
+	encriptado=("".join(lista).strip('[]'))
+	return encriptado
+
+frasechave=('O professor Carlos fará uma prova difícil.')
+
+valor=frasechave
+#valor=input('Insira uma mensagem'+'\n')
+secret=encrypt(valor)
+file1.write(secret)
+real=decrypt(secret)
+file2.write(real)
